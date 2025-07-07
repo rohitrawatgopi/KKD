@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:paint_shop/core/network/response_model.dart';
-import 'package:paint_shop/cubit/auth.stat.dart';
-import 'package:paint_shop/cubit/repo/auth.dart';
+import 'package:paint_shop/features/2auth/cubit/auth.state.dart'
+    show AuthState, AuthInitial, AuthLoading, AuthSuccess, AuthFailure;
+import 'package:paint_shop/features/2auth/repo/auth.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -16,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       );
 
-      if (response.status == true) {
+      if (response.success == true) {
         emit(AuthSuccess(response.data));
       } else {
         emit(AuthFailure(response.message ?? 'Login failed'));
@@ -41,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
       );
 
-      if (response.status == true) {
+      if (response.success == true) {
         log(response.data.toString());
       } else {
         emit(AuthFailure(response.message ?? 'Singup failed'));

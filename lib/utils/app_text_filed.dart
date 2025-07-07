@@ -38,10 +38,12 @@ class AppTextField extends StatelessWidget {
   final Color? textColor;
   final TextCapitalization? textCapitalization;
   final double borderRadius;
+  final bool? isCollapsed;
 
   const AppTextField({
     super.key,
     this.labelText,
+    this.isCollapsed,
     this.width = 1,
     this.fontWeight,
     this.iconData,
@@ -120,6 +122,7 @@ class AppTextField extends StatelessWidget {
         obscuringCharacter: obscuringCharacter,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
+          isCollapsed: isCollapsed,
           counterText: '',
           prefix: leadingIcon,
           prefixText: prefixText,

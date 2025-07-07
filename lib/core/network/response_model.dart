@@ -1,13 +1,16 @@
 class ResponseModel {
-  bool? status;
+  bool? success;
   String? message;
-  dynamic data;
+  String? token;
+  dynamic user;
 
-  ResponseModel(this.status, this.data, this.message);
+  ResponseModel(this.success, this.user, this.message, this.token);
 
   factory ResponseModel.fromJson(Map<String, dynamic> json) => ResponseModel(
-    json['status'],
-    json['data'],
+    json['success'],
+
+    json['user'],
     json['message'] ?? json['msg'],
+    json['token'],
   );
 }

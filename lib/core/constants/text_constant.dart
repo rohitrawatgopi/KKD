@@ -16,6 +16,8 @@ class AppString {
   static const String welcomeBack = "Welcome Back!";
   static const String EmailId = "Email Id";
   static const String PermanentAddress = "Permanent Address";
+  static const String TOTALCOINS = "TOTAL COINS";
+  static const String KKDCard = "KKD Card";
   static const String loginToContinue =
       "Log in to continue using your account.";
   static const String emailOrMobile = "Email / Mobile Number";

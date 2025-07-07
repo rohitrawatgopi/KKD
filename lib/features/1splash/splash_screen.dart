@@ -17,11 +17,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Future.delayed(Duration(seconds: 3), () {
       final user = Hive.box<UserModel>('userBox').get('currentUser');
       if (user != null) {
+        // ignore: use_build_context_synchronously
         context.pushNamed("home");
       } else {
+        // ignore: use_build_context_synchronously
         context.pushNamed("login");
       }
-      print(user);
     });
 
     super.initState();

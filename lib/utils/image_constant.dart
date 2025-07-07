@@ -16,5 +16,10 @@ class AppImage {
   static String withdraw = 'assets/images/withdraw.png';
   static String car = 'assets/images/car.png';
   static String splashImg = 'assets/images/splash.png';
+  static String helpImg = 'assets/images/helpImg.png';
   static String FrameImg = 'assets/images/Frame.png';
+  static String special1 = 'assets/images/special.offer1.png';
+  static String special2 = 'assets/images/special.offer.png';
+  static String kkdCardImg = 'assets/images/kkd.card.png';
+  static String backImg = 'assets/images/back.png';
 }

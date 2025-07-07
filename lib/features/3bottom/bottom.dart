@@ -1,6 +1,8 @@
 import 'package:paint_shop/app/import.dart';
+import 'package:paint_shop/features/3bottom/home/ui/home.dart';
+import 'package:paint_shop/features/3bottom/qr/ui/qr.dart';
+import 'package:paint_shop/features/3bottom/withdraw/ui/Withdraw.dart';
 import 'package:paint_shop/utils/bottom_icon.dart';
-import 'package:paint_shop/utils/uploaddoc.dart';
 
 class BottomNavigationBarScreen extends StatefulWidget {
   const BottomNavigationBarScreen({super.key});
@@ -13,16 +15,14 @@ class BottomNavigationBarScreen extends StatefulWidget {
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int _currentIndex = 0;
 
-  static const List<Widget> _pages = [
-    // HomeScreen(),
-    UploadDocumnetScreen(UploadScreenName: ""),
+  static List<Widget> _pages = [
+    HomeScreen(),
+
+    ProductScreen(),
+    QRScannerScreen(),
+
     WithdrawScreen(),
     ProfileScreen(),
-    ProductScreen(),
-
-    // WithdrawScreen(),
-    // ProfileScreen(),
-    Text("1"), Text("1"),
   ];
 
   @override
@@ -34,6 +34,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
       ),
 
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         body: _pages[_currentIndex],
         bottomNavigationBar: Container(
           height: 70,

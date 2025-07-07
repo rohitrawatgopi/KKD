@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocListener, BlocBuilder, ReadContext;
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:paint_shop/app/import.dart';
-import 'package:paint_shop/cubit/auth.stat.dart';
-import 'package:paint_shop/cubit/login.dart';
+import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
+import 'package:paint_shop/features/2auth/cubit/auth.state.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
 
 class SignupScreen extends StatefulWidget {

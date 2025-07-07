@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart'
 import 'package:hive_flutter/adapters.dart';
 import 'package:paint_shop/app/import.dart';
 import 'package:paint_shop/app/router.dart';
-import 'package:paint_shop/cubit/login.dart';
 import 'package:paint_shop/delte/user_model.dart';
+import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
 
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+final shellNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

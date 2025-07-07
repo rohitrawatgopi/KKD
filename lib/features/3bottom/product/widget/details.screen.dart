@@ -19,7 +19,7 @@ class RewardDetailsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(AppImage.paint, height: 208, width: 370),
+            Image.asset(AppImage.car, height: 208, width: 370),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(

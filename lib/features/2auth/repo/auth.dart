@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:paint_shop/core/network/api_client.dart';
 import 'package:paint_shop/core/network/api_endpoints.dart';
+import 'package:paint_shop/core/network/response_model.dart';
 
 class AuthRepo {
   static Future Login({required String email, required String password}) async {
@@ -10,7 +11,7 @@ class AuthRepo {
       ApiEndpoints.loginURL,
       data: {"identifier": email, "password": password},
     );
-
+    final user = ResponseModel.fromJson(response.data);
     return response;
   }
 

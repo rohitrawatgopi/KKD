@@ -1,8 +1,12 @@
 import 'package:paint_shop/app/import.dart';
-import 'package:paint_shop/features/bottom/bottom.dart';
+import 'package:paint_shop/features/3bottom/bottom.dart';
+import 'package:paint_shop/features/3bottom/product/widget/details.screen.dart';
+import 'package:paint_shop/features/3bottom/qr/ui/qr.dart';
+import 'package:paint_shop/features/3bottom/withdraw/ui/Withdraw.dart';
+import 'package:paint_shop/features/3bottom/withdraw/ui/history.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/bottom',
+  initialLocation: '/splash',
 
   routes: [
     GoRoute(
@@ -15,6 +19,11 @@ final GoRouter appRouter = GoRouter(
       name: 'details',
       builder: (context, state) => const RewardDetailsScreen(),
     ),
+    GoRoute(
+      path: '/trasnactionhistory',
+      name: 'trasnactionhistory',
+      builder: (context, state) => const WithDrawaHistory(),
+    ),
 
     // GoRoute(
     //   path: '/details',
@@ -23,8 +32,8 @@ final GoRouter appRouter = GoRouter(
     // ),
     GoRoute(
       path: '/splash',
-      name: 'splash',
-      builder: (context, state) => const OnboardingScreen(),
+      name: '/splash',
+      builder: (context, state) => OnboardingScreen(),
     ),
     GoRoute(
       path: '/bottom',
@@ -35,6 +44,11 @@ final GoRouter appRouter = GoRouter(
       path: '/login',
       name: 'login',
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (context, state) => const OnboardingScreen(),
     ),
     GoRoute(
       path: '/withdraw',
@@ -55,6 +69,11 @@ final GoRouter appRouter = GoRouter(
       path: '/product',
       name: 'product',
       builder: (context, state) => const ProductScreen(),
+    ),
+    GoRoute(
+      path: '/qr',
+      name: 'qr',
+      builder: (context, state) => QRScannerScreen(),
     ),
     // GoRoute(
     //   path: '/qr',
