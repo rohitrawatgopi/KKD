@@ -85,7 +85,14 @@ class DioClient {
   late final Dio _dio;
 
   DioClient() {
-    _dio = Dio();
+    _dio = Dio(
+      BaseOptions(
+        validateStatus: (status) {
+          return status != null &&
+              status < 500; // Accept 400, 401, etc. as valid
+        },
+      ),
+    );
 
     _dio
       ..options.baseUrl = ApiEndpoints.baseUrl
@@ -102,6 +109,9 @@ class DioClient {
           logPrint: (object) => log(object.toString(), name: 'TMDB API'),
         ),
       );
+    (status) {
+      return status != null && status < 500; // Accept 400, 401, etc. as valid
+    };
   }
 
   /// * GET
@@ -146,7 +156,7 @@ class DioClient {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-
+      log(response.data.toString());
       return response;
     } on DioException {
       rethrow;

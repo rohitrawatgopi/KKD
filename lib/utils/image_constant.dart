@@ -18,8 +18,12 @@ class AppImage {
   static String splashImg = 'assets/images/splash.png';
   static String helpImg = 'assets/images/helpImg.png';
   static String FrameImg = 'assets/images/Frame.png';
+  static String vector = 'assets/images/Vector.jpg';
+  static String dfs = 'assets/images/dfs.svg';
   static String special1 = 'assets/images/special.offer1.png';
   static String special2 = 'assets/images/special.offer.png';
   static String kkdCardImg = 'assets/images/kkd.card.png';
   static String backImg = 'assets/images/back.png';
+  static String flashLight = 'assets/images/flashlight.svg';
+  static String gallery = 'assets/images/gallery.svg';
 }

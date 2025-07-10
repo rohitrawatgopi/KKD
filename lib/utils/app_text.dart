@@ -12,10 +12,12 @@ class AppText extends StatelessWidget {
   final TextDecoration? textDecoration;
   final FontStyle? fontStyle;
   final int? maxLine;
+  final double? height;
   const AppText({
     super.key,
     required this.title,
     this.color,
+    this.height,
     this.maxLine,
     this.letterSpacing,
     this.textAlign,
@@ -31,14 +33,19 @@ class AppText extends StatelessWidget {
     return Text(
       title,
       textAlign: textAlign,
+
       maxLines: maxLine,
       style: TextStyle(
+        height: height,
+
         color: color,
         letterSpacing: letterSpacing,
         fontSize: fontSize,
         fontWeight: fontWeight,
+
         overflow: textOverflow,
-        fontFamily: 'SF Pro Display',
+        fontFamily: 'SF Pro',
+
         decoration: textDecoration,
         fontStyle: fontStyle,
       ),
@@ -49,6 +56,7 @@ class AppText extends StatelessWidget {
 class ReqAppText extends StatelessWidget {
   final String title;
   final String title2;
+  final double? height;
   final String? title3;
   final String? title4;
   final double fontSize;
@@ -68,8 +76,10 @@ class ReqAppText extends StatelessWidget {
     required this.title2,
     this.title3,
     this.color1,
+    this.height,
     this.color2,
     this.textAlign,
+
     this.textOverflow,
     this.textDecoration,
     this.fontSize = 14,
@@ -87,6 +97,7 @@ class ReqAppText extends StatelessWidget {
           fontSize: fontSize,
           fontFamily: 'SF Pro Display',
           fontWeight: fontWeight,
+          height: height,
           // ...
         ),
 
@@ -103,6 +114,7 @@ class ReqAppText extends StatelessWidget {
           TextSpan(
             text: title3,
             style: TextStyle(
+              height: height,
               fontSize: fontSize,
               fontWeight: fontWeight,
               color: color2 ?? AppColors.textLightColor,
@@ -112,6 +124,7 @@ class ReqAppText extends StatelessWidget {
           TextSpan(
             text: title4,
             style: TextStyle(
+              height: height,
               fontSize: fontSize,
               fontWeight: fontWeight2,
               color: color2 ?? AppColors.textLightColor,

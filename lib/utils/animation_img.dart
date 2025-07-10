@@ -12,10 +12,9 @@ class _MyAnimatedImageState extends State<MyAnimatedImage> {
   @override
   void initState() {
     super.initState();
-    // Start the animation right after the first frame is rendered
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration(seconds: 1), () {
       setState(() {
-        _width = 178; // animate to 200 px width
+        _width = 150;
       });
     });
   }
@@ -23,11 +22,17 @@ class _MyAnimatedImageState extends State<MyAnimatedImage> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: _height,
+      decoration: BoxDecoration(),
       width: _width,
-      duration: Duration(seconds: 2),
-      curve: Curves.linear,
-      child: Image.asset(AppImage.splashImg, fit: BoxFit.fill),
+
+      height: _height,
+      duration: const Duration(seconds: 1),
+      child: Image.asset(
+        AppImage.splashImg,
+
+        fit: BoxFit.fitHeight,
+        height: _height,
+      ),
     );
   }
 }

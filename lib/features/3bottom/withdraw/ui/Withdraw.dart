@@ -1,6 +1,7 @@
 import 'package:paint_shop/app/import.dart';
 import 'package:paint_shop/features/3bottom/withdraw/widget/button.dart';
 import 'package:paint_shop/utils/alert_dilog.dart';
+import 'package:paint_shop/utils/app.container.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
 import 'package:paint_shop/utils/rewar_success_dilo.dart';
 
@@ -9,17 +10,8 @@ class WithdrawScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            end: Alignment.topCenter,
-            begin: Alignment.bottomCenter,
-            colors: [Colors.white, AppColors.appColor],
-          ),
-        ),
-        padding: EdgeInsets.only(top: 64.h),
+      child: AppContainer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -30,6 +22,8 @@ class WithdrawScreen extends StatelessWidget {
                 children: [
                   AppText(
                     title: AppString.withdraw,
+                    height: 1.6,
+                    letterSpacing: -1,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
                   ),
@@ -38,15 +32,18 @@ class WithdrawScreen extends StatelessWidget {
                       context.push("/trasnactionhistory");
                     },
                     child: Container(
-                      height: 40.h,
-                      width: 40.w,
-                      margin: EdgeInsets.only(left: 10.w),
+                      height: 44.h,
+                      width: 44.w,
+                      padding: EdgeInsets.all(10.w),
                       decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/withdraw.png"),
-                        ),
-                        shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(20.r),
+
                         color: Colors.white,
+                      ),
+                      child: Image.asset(
+                        AppImage.withdraw,
+                        width: 18.w,
+                        height: 16.h,
                       ),
                     ),
                   ),
@@ -54,13 +51,19 @@ class WithdrawScreen extends StatelessWidget {
               ),
             ),
             AppText(
+              textAlign: TextAlign.center,
               title: "10,000",
               fontSize: 28.sp,
+              height: 1,
+              letterSpacing: -0.5,
               fontWeight: FontWeight.w600,
             ),
+            Gap(6.h),
             AppText(
               title: AppString.AvailableBalance,
               fontSize: 14.sp,
+              height: 1,
+              letterSpacing: 0.2,
               fontWeight: FontWeight.w500,
             ),
             Gap(26.h),
@@ -68,6 +71,9 @@ class WithdrawScreen extends StatelessWidget {
               title: AppString.Yourwithdrawalrequestisencryptedandsecure,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
+              height: 1,
+              letterSpacing: -0.2,
+              textAlign: TextAlign.center,
             ),
             Gap(16.h),
 
@@ -76,7 +82,7 @@ class WithdrawScreen extends StatelessWidget {
               height: 267.h,
               width: 327.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24.h),
+                borderRadius: BorderRadius.circular(24.r),
                 gradient: LinearGradient(
                   colors: [
                     Color.fromRGBO(209, 231, 253, 1),
@@ -90,21 +96,29 @@ class WithdrawScreen extends StatelessWidget {
                   AppText(
                     title: AppString.youCanWithdrawUpToBalance,
                     fontSize: 14.sp,
-
+                    letterSpacing: -0.2,
                     fontWeight: FontWeight.w400,
+                    height: 1,
                   ),
                   Gap(12.h),
                   AppText(
                     title: AppString.amountWithdraw,
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
+                    letterSpacing: -0.2,
+                    height: 1,
                   ),
+                  Gap(4.h),
                   AppTextField(
+                    height: 40.h,
+                    width: 279.w,
                     maxLines: 1,
+                    textSpace: -0.2,
                     keyBoardType: TextInputType.number,
                     hintText: AppString.EnterAmounttoWithdraw,
                     fontWeight: FontWeight.w500,
                     fontSize: 14.sp,
+                    textHeight: 1,
                   ),
                   Gap(6.h),
                   Gap(6.h),
@@ -112,6 +126,7 @@ class WithdrawScreen extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: AppText(
                       title: "Min: 15,000",
+
                       fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
                       letterSpacing: 0.2,
@@ -147,13 +162,27 @@ class WithdrawScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Gap(0.2 * height),
-            ReqAppText(
-              textAlign: TextAlign.center,
-              title: AppString.needHelp + "\n",
-              title2: AppString.Contactsupportatsupportbirlaopuscom,
+            Gap(200.h),
+            Column(
+              children: [
+                AppText(
+                  title: AppString.needHelp,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.sp,
+                  height: 1.5,
+                  letterSpacing: -0.2,
+                  textAlign: TextAlign.center,
+                ),
+                AppText(
+                  title: AppString.Contactsupportatsupportbirlaopuscom,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.sp,
+                  height: 1.5,
+                  letterSpacing: -0.2,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            Gap(30.h),
           ],
         ),
       ),

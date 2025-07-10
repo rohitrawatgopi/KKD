@@ -26,7 +26,7 @@ class AppSearchContainer extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(15.w, 11.h, 10.w, 11.h),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(36),
+            borderRadius: BorderRadius.circular(36.r),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,6 +36,8 @@ class AppSearchContainer extends StatelessWidget {
               Expanded(
                 child: AppTextField(
                   controller: controller,
+                  fontSize: 12.sp,
+
                   hintText: AppString.Search,
                   isCollapsed: true,
                   contentPadding: EdgeInsets.zero,
@@ -51,8 +53,9 @@ class AppSearchContainer extends StatelessWidget {
             width: 40.w,
             margin: EdgeInsets.only(left: 10.w),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.r),
               image: DecorationImage(image: AssetImage(image)),
-              shape: BoxShape.circle,
+
               color: Colors.white,
             ),
           ),

@@ -20,7 +20,6 @@ class ProductScreen extends StatelessWidget {
             image: AppImage.FrameImg,
           ),
           Gap(10.h),
-          // Scrollable Grid
           Expanded(
             child: GridView.builder(
               itemCount: 20,

@@ -4,6 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:paint_shop/app/import.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.state.dart';
+import 'package:paint_shop/features/2auth/widget/signup.head.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -77,19 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppText(
-                        fontWeight: FontWeight.w500,
-                        title: AppString.signUp,
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                      ),
-
-                      AppText(
-                        fontWeight: FontWeight.w500,
-                        title: AppString.createYourAccount,
-                        color: Colors.black,
-                        fontSize: 14.sp,
-                      ),
+                      CustomSingupHead(),
                       Gap(20.h),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -100,74 +89,84 @@ class _SignupScreenState extends State<SignupScreen> {
                               title: AppString.fullName,
                               color: Colors.black,
                               fontSize: 16.sp,
+                              height: 1.5,
                               fontWeight: FontWeight.w500,
                             ),
                             AppTextField(
+                              textHeight: 1.4,
                               hintText: AppString.enterYourFullName,
                               controller: _nameController,
                               validator: MultiValidator([
                                 RequiredValidator(
                                   errorText: "Name is Required",
                                 ),
-                              ]),
+                              ]).call,
                             ),
                             Gap(13.h),
                             AppText(
+                              height: 1.5,
                               fontWeight: FontWeight.w500,
                               title: AppString.emailAddress,
                               color: Colors.black,
                               fontSize: 16.sp,
                             ),
                             AppTextField(
+                              textHeight: 1.4,
                               keyBoardType: TextInputType.emailAddress,
                               validator: MultiValidator([
                                 EmailValidator(
                                   errorText: "Enter a valid email",
                                 ),
-                              ]),
+                              ]).call,
                               hintText: AppString.Enteryouremail,
                               controller: _emailController,
                             ),
                             Gap(13.h),
                             AppText(
+                              height: 1.5,
                               fontWeight: FontWeight.w500,
                               title: AppString.mobileNumber,
                               color: Colors.black,
                               fontSize: 16.sp,
                             ),
                             AppTextField(
+                              textHeight: 1.4,
                               keyBoardType: TextInputType.phone,
                               validator: MultiValidator([
                                 PatternValidator(
                                   r'^[0-9]{10}$',
                                   errorText: 'Enter a valid 10‑digit mobile',
                                 ),
-                              ]),
+                              ]).call,
                               hintText: AppString.Enteryourmobilenumber,
                               controller: _mobileController,
                             ),
                             Gap(13.h),
                             AppText(
+                              height: 1.5,
                               fontWeight: FontWeight.w500,
                               title: AppString.createPassword,
                               color: Colors.black,
                               fontSize: 16.sp,
                             ),
                             AppTextField(
+                              textHeight: 1.4,
                               obscureText: true,
                               maxLines: 1,
+
                               validator: MultiValidator([
                                 RequiredValidator(errorText: 'Required'),
                                 MinLengthValidator(
                                   8,
-                                  errorText: 'Min 8 characters',
+                                  errorText: 'Min 6 characters',
                                 ),
-                              ]),
+                              ]).call,
                               hintText: AppString.enterYourPassword,
                               controller: _passwordController,
                             ),
                             Gap(13.h),
                             AppText(
+                              height: 1.5,
                               fontWeight: FontWeight.w500,
                               title: AppString.confirmedPassword,
                               color: Colors.black,
@@ -197,8 +196,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             return Center(child: CircularProgressIndicator());
                           }
                           return AppButton(
+                            fontHeight: 1.4,
                             color: AppColors.textLightColor,
                             onPressed: _trySingup,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
 
                             title: AppString.signUp,
                           );
@@ -206,14 +208,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
 
                       Gap(13.h),
-                      Align(
-                        alignment: Alignment.center,
-                        child: AppText(
-                          textAlign: TextAlign.center,
-
-                          title: AppString.alreadyHaveAnAccount,
-                          color: Colors.black,
-                          fontSize: 16.sp,
+                      InkWell(
+                        onTap: () {
+                          context.go("/login");
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: AppText(
+                            textAlign: TextAlign.center,
+                            fontWeight: FontWeight.w400,
+                            title: AppString.alreadyHaveAnAccount,
+                            color: Colors.black,
+                            fontSize: 14.sp,
+                            height: 1.2,
+                          ),
                         ),
                       ),
                     ],

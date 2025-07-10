@@ -1,76 +1,96 @@
-import 'package:paint_shop/app/import.dart';
-import 'package:paint_shop/features/3bottom/home/ui/home.dart';
-import 'package:paint_shop/features/3bottom/qr/ui/qr.dart';
-import 'package:paint_shop/features/3bottom/withdraw/ui/Withdraw.dart';
+// import 'package:flutter/material.dart';
+import 'package:paint_shop/app/import.dart'; // apna shared import file
 import 'package:paint_shop/utils/bottom_icon.dart';
 
-class BottomNavigationBarScreen extends StatefulWidget {
-  const BottomNavigationBarScreen({super.key});
-
-  @override
-  State<BottomNavigationBarScreen> createState() =>
-      _BottomNavigationBarScreenState();
-}
-
-class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
-  int _currentIndex = 0;
-
-  static List<Widget> _pages = [
-    HomeScreen(),
-
-    ProductScreen(),
-    QRScannerScreen(),
-
-    WithdrawScreen(),
-    ProfileScreen(),
-  ];
+class BottomNavigationBarScreen extends StatelessWidget {
+  final Widget child;
+  const BottomNavigationBarScreen({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        systemNavigationBarContrastEnforced: true,
-        statusBarColor: Colors.transparent,
-      ),
+    final String location = GoRouter.of(
+      context,
+    ).routerDelegate.currentConfiguration.uri.toString();
 
+    int _getIndex() {
+      if (location.startsWith('/product')) return 1;
+      if (location.startsWith('/qr')) return 2;
+      if (location.startsWith('/withdraw')) return 3;
+      if (location.startsWith('/profile')) return 4;
+      return 0;
+    }
+
+    void _onTap(int index) {
+      switch (index) {
+        case 0:
+          context.go('/home');
+          break;
+        case 1:
+          context.go('/product');
+          break;
+        case 2:
+          context.go('/qr');
+          break;
+        case 3:
+          context.go('/withdraw');
+          break;
+        case 4:
+          context.go('/profile');
+          break;
+      }
+    }
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: true,
+      ),
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: _pages[_currentIndex],
+        body: child,
         bottomNavigationBar: Container(
           height: 70,
-
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: Offset(0, -1),
+              ),
+            ],
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NavIcon(
                 asset: AppImage.homeIcon,
                 label: AppString.home,
-                isActive: _currentIndex == 0,
-                onTap: () => setState(() => _currentIndex = 0),
+                isActive: _getIndex() == 0,
+                onTap: () => _onTap(0),
               ),
               NavIcon(
                 asset: AppImage.productIcon,
                 label: AppString.product,
-                isActive: _currentIndex == 1,
-                onTap: () => setState(() => _currentIndex = 1),
+                isActive: _getIndex() == 1,
+                onTap: () => _onTap(1),
               ),
               NavIcon(
                 asset: AppImage.qrIcon,
                 label: AppString.qrScan,
-                isActive: _currentIndex == 2,
-                onTap: () => setState(() => _currentIndex = 2),
+                isActive: _getIndex() == 2,
+                onTap: () => _onTap(2),
               ),
               NavIcon(
                 asset: AppImage.withdrawIcon,
                 label: AppString.withdraw,
-                isActive: _currentIndex == 3,
-                onTap: () => setState(() => _currentIndex = 3),
+                isActive: _getIndex() == 3,
+                onTap: () => _onTap(3),
               ),
               NavIcon(
                 asset: AppImage.profileIcon,
                 label: AppString.Profile,
-                isActive: _currentIndex == 4,
-                onTap: () => setState(() => _currentIndex = 4),
+                isActive: _getIndex() == 4,
+                onTap: () => _onTap(4),
               ),
             ],
           ),

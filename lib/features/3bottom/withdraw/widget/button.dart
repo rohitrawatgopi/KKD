@@ -22,11 +22,13 @@ class WithDrawButton extends StatelessWidget {
       onTap: onTab,
       child: Container(
         width: 133.5.h,
-        height: 40,
+        height: 40.w,
+
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
         decoration: BoxDecoration(
           color: bgColor ?? Colors.transparent,
-          borderRadius: BorderRadius.circular(12.h),
-          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(12.r),
+          border: Border.all(color: Colors.black, width: 1.w),
         ),
 
         child: Center(
@@ -34,6 +36,8 @@ class WithDrawButton extends StatelessWidget {
             title: btName,
             color: textColor ?? AppColors.textColor,
             fontSize: 14.sp,
+            height: 1.5,
+            letterSpacing: -1,
             fontWeight: FontWeight.w400,
           ),
         ),

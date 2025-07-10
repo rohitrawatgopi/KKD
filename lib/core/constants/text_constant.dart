@@ -40,7 +40,7 @@ class AppString {
   static const String filter = "Filter";
   static const String interior = "Interior";
   static const String exterior = "Exterior";
-  static const String waterproofing = "Waterproofing";
+  static const String waterproofing = "Waterpro";
   static const String woodFinish = "Woodfinish";
   static const String wallpaper = "Wallpaper";
   static const String enamel = "Enamel";
@@ -73,6 +73,7 @@ class AppString {
   static const String verified = "verified";
   static const String AvailableBalance = "Available Balance";
   static const String availableCoins = "availableCoins";
+  static const String Offers = "Offers";
   static const String TransactionHistory = "Transaction History";
   static const String secureYourAccount = "Secure Your Account in Seconds";
   static const String uploadYourBankPassbook = "Upload Your Bank Passbook";

@@ -9,6 +9,7 @@ import 'package:paint_shop/core/constants/color_constant.dart';
 import 'package:paint_shop/core/constants/text_constant.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.state.dart';
+import 'package:paint_shop/features/2auth/widget/login.head.dart';
 import 'package:paint_shop/utils/app_button.dart';
 import 'package:paint_shop/utils/app_text.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
@@ -27,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _tryLogin() {
     if (_formKey.currentState!.validate()) {
-      // ✅ सुधार: cubit को call करें
       context.read<AuthCubit>().signIn(
         _emailMobileController.text.trim(),
         _passwordController.text,
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     context,
                   ).showSnackBar(SnackBar(content: Text(state.message)));
                 } else if (state is AuthSuccess) {
-                  context.goNamed('home');
+                  context.push("/bottom");
                 }
               },
               child: SingleChildScrollView(
@@ -75,30 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                          left: 16.w,
-                          right: 16.w,
-                          top: 72.h,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              fontWeight: FontWeight.w500,
-                              title: AppString.welcomeBack,
-                              color: Colors.black,
-                              fontSize: 18.sp,
-                            ),
-                            AppText(
-                              fontWeight: FontWeight.w500,
-                              title: AppString.loginToContinue,
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                            ),
-                          ],
-                        ),
-                      ),
+                      CustomLoginHeaad(),
                       Container(
                         padding: EdgeInsets.only(left: 24.w, right: 24.w),
                         child: Column(
@@ -109,7 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.w500,
                               title: AppString.emailOrMobile,
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 16.sp,
+                              height: 1.5,
                             ),
                             AppTextField(
                               controller: _emailMobileController,
@@ -118,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 EmailValidator(
                                   errorText: 'Enter a valid email',
                                 ),
-                              ]),
+                              ]).call,
                             ),
                             Gap(13),
                             AppText(
@@ -136,9 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 RequiredValidator(errorText: 'Required'),
                                 MinLengthValidator(
                                   8,
-                                  errorText: 'Min 8 characters',
+                                  errorText: 'Min 6 characters',
                                 ),
-                              ]),
+                              ]).call,
                             ),
                             Gap(350.h),
 
@@ -151,19 +129,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 return AppButton(
                                   color: AppColors.textLightColor,
-                                  onPressed:
-                                      _tryLogin, // ✅ सुधार: अब login call हो रहा है
+                                  onPressed: _tryLogin,
                                   title: AppString.Login,
                                 );
                               },
                             ),
 
-                            // AppButton(
-                            //   color: AppColors.textLightColor,
-                            //   onPressed:
-                            //       _tryLogin, // ✅ सुधार: अब login call हो रहा है
-                            //   title: AppString.Login,
-                            // ),
                             Gap(13.h),
                             InkWell(
                               onTap: () {

@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final Color? borderColor;
   final bool? isDisabled;
   final double? fontSize;
+  final double? fontHeight;
   final FontWeight? fontWeight;
   final Widget? widget;
   final GlobalKey? buttonKey;
@@ -25,6 +26,7 @@ class AppButton extends StatelessWidget {
     required this.title,
     this.hight,
     this.width,
+    this.fontHeight,
     this.color,
     this.radius = 30,
     this.textColor,
@@ -84,6 +86,7 @@ class AppButton extends StatelessWidget {
                     textAlign: TextAlign.center,
 
                     style: TextStyle(
+                      height: fontHeight,
                       fontSize: fontSize,
                       color: isDisabled == true
                           ? disabledTextColor ?? AppColors.textColor

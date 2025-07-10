@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 class AppTextField extends StatelessWidget {
   final double? width;
   final double? height;
+  final double? textHeight;
+  final double? textSpace;
 
   final Widget? iconData;
   final Widget? leadingIcon;
@@ -25,6 +27,7 @@ class AppTextField extends StatelessWidget {
   final String? counterText;
   final FontWeight? fontWeight;
   final double? fontSize;
+
   final Widget? prefixIcon;
   final TextInputType? keyBoardType;
   final bool? enabled;
@@ -42,15 +45,18 @@ class AppTextField extends StatelessWidget {
 
   const AppTextField({
     super.key,
+    this.textHeight,
+    this.textSpace,
     this.labelText,
     this.isCollapsed,
     this.width = 1,
     this.fontWeight,
     this.iconData,
     this.controller,
+    this.height,
     this.onTap,
     this.readOnly = false,
-    this.height,
+
     this.hintText,
     this.onChanged,
     this.hintStyle,
@@ -115,9 +121,11 @@ class AppTextField extends StatelessWidget {
         maxLines: maxLines,
         enableSuggestions: true,
         style: TextStyle(
+          height: textHeight,
           fontSize: fontSize,
           color: textColor,
           fontWeight: fontWeight,
+          letterSpacing: textSpace,
         ),
         obscuringCharacter: obscuringCharacter,
         decoration: InputDecoration(

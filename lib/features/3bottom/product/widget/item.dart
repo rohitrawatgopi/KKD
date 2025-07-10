@@ -10,30 +10,43 @@ class ProductCard extends StatelessWidget {
         Container(
           height: 204.h,
           width: 164.w,
-          padding: EdgeInsets.symmetric(vertical: 8.h),
+          padding: EdgeInsets.symmetric(vertical: 8.r),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
+            // border: Border.all(color: Colors.black),
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.r),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Image.asset(AppImage.paint, height: 128.h, width: 114.w),
-              ),
+              Image.asset(AppImage.paint, width: 114.w, height: 128.h),
               Container(
+                height: 44.h,
+                width: 164.w,
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AppText(
+                      height: 1,
                       title: "Birla Opus Style Perfect Start Primer",
-                      letterSpacing: 1.2.w,
+                      letterSpacing: 0.2,
+                      fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
                     ),
-                    AppText(title: "944353"),
+
+                    Gap(7.h),
+                    AppText(
+                      height: 1,
+                      title: "944353",
+                      fontSize: 10.sp,
+
+                      letterSpacing: 0,
+
+                      fontWeight: FontWeight.w400,
+                    ),
                   ],
                 ),
               ),
@@ -42,14 +55,14 @@ class ProductCard extends StatelessWidget {
         ),
 
         Positioned(
-          right: 14,
-          top: 7,
+          right: 14.w,
+          top: 7.h,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
             height: 32.h,
             width: 62.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r),
 
               color: AppColors.cardStackColor,
             ),

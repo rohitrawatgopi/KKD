@@ -5,6 +5,7 @@ import 'package:paint_shop/app/import.dart';
 import 'package:paint_shop/app/router.dart';
 import 'package:paint_shop/delte/user_model.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
+import 'package:paint_shop/features/3bottom/home/cubit/category.cubit.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -15,7 +16,10 @@ void main() async {
   await Hive.openBox<UserModel>('userBox');
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider<AuthCubit>(create: (_) => AuthCubit())],
+      providers: [
+        BlocProvider<AuthCubit>(create: (_) => AuthCubit()),
+        BlocProvider<CategoryCubit>(create: (_) => CategoryCubit()),
+      ],
       child: MyApp(),
     ),
   );
@@ -25,12 +29,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
 
       builder: (context, child) {
         return MaterialApp.router(
+          theme: ThemeData(fontFamily: 'SF Pro'),
           debugShowCheckedModeBanner: false,
           routerConfig: appRouter,
         );
