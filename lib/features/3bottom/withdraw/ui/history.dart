@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:paint_shop/app/import.dart';
 import 'package:paint_shop/utils/app.container.dart';
 
@@ -20,7 +21,7 @@ class WithDrawaHistory extends StatelessWidget {
                     height: 24.h,
                     width: 34.w,
 
-                    child: Image.asset(
+                    child: SvgPicture.asset(
                       AppImage.backImg,
 
                       height: 15.h,

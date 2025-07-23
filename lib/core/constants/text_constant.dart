@@ -2,6 +2,7 @@ class AppString {
   static const String signUp = "Sign Up";
   static const String OnlyJPGPNGorPDF =
       "Only JPG, PNG, or PDF files. Max size: 5 MB";
+  static const String OnlyJPGPNG = "Only JPG, or  PNG files. Max size: 5 MB";
   static const String createYourAccount = "Create Your Account";
   static const String fullName = "Full Name";
   static const String enterYourFullName = "Enter your full name";
@@ -18,6 +19,8 @@ class AppString {
   static const String PermanentAddress = "Permanent Address";
   static const String TOTALCOINS = "TOTAL COINS";
   static const String KKDCard = "KKD Card";
+  static const String editDetails = "editDetails";
+  static const String update = "update";
   static const String loginToContinue =
       "Log in to continue using your account.";
   static const String emailOrMobile = "Email / Mobile Number";
@@ -49,6 +52,7 @@ class AppString {
 
   static const String price = "Price";
   static const String clean = "Clean";
+  static const String outOF = "out of 3 complete";
   static const String applyChanges = "Apply Changes";
   static const String estherHoward = "Esthefds";
   static const String contractor = "Contractor";
@@ -67,6 +71,7 @@ class AppString {
   static const String panCard = "Pancard";
   static const String aadharCard = "Aadhar Card";
   static const String bankDetails = "Bank details";
+  // static const String bankNumber = "Bank number";
   static const String accountNumber = "Account Number";
   static const String accountHolder = "Account holder";
   static const String bankName = "Bank Name";
@@ -76,7 +81,7 @@ class AppString {
   static const String Offers = "Offers";
   static const String TransactionHistory = "Transaction History";
   static const String secureYourAccount = "Secure Your Account in Seconds";
-  static const String uploadYourBankPassbook = "Upload Your Bank Passbook";
+  static const String uploadYour = "Upload Your";
   static const String uploadImage = "Upload Image";
   static const String save = "Save";
   static const String passbook = "Passbook";

@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paint_shop/app/import.dart';
 
 class NavIcon extends StatelessWidget {
@@ -22,7 +23,7 @@ class NavIcon extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(asset!, width: 24, height: 24, color: Colors.black),
+          SvgPicture.asset(asset!, width: 24, height: 24, color: Colors.black),
           const SizedBox(height: 4),
           Text(label!, style: TextStyle(fontSize: 12, color: Colors.black)),
         ],

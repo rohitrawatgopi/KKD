@@ -4,13 +4,12 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:gap/gap.dart';
 export 'package:go_router/go_router.dart';
 export 'package:paint_shop/core/constants/color_constant.dart';
+export 'package:paint_shop/core/constants/image_constant.dart';
 export 'package:paint_shop/core/constants/text_constant.dart';
 export 'package:paint_shop/features/1splash/splash_screen.dart';
 export 'package:paint_shop/features/2auth/ui/login.dart';
 export 'package:paint_shop/features/2auth/ui/singup.dart' show SignupScreen;
 export 'package:paint_shop/features/3bottom/product/ui/product.dart';
 export 'package:paint_shop/features/3bottom/profile/ui/profile.dart';
-
 export 'package:paint_shop/utils/app_button.dart';
 export 'package:paint_shop/utils/app_text.dart';
-export 'package:paint_shop/utils/image_constant.dart';

@@ -8,12 +8,14 @@ class WithDrawButton extends StatelessWidget {
   VoidCallback onTab;
   final Color? bgColor;
   final Color? textColor;
+  Widget? child;
   WithDrawButton({
     super.key,
     required this.btName,
     required this.onTab,
     this.bgColor,
     this.textColor,
+    this.child,
   });
 
   @override
@@ -23,7 +25,6 @@ class WithDrawButton extends StatelessWidget {
       child: Container(
         width: 133.5.h,
         height: 40.w,
-
         padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
         decoration: BoxDecoration(
           color: bgColor ?? Colors.transparent,
@@ -31,16 +32,18 @@ class WithDrawButton extends StatelessWidget {
           border: Border.all(color: Colors.black, width: 1.w),
         ),
 
-        child: Center(
-          child: AppText(
-            title: btName,
-            color: textColor ?? AppColors.textColor,
-            fontSize: 14.sp,
-            height: 1.5,
-            letterSpacing: -1,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        child:
+            child ??
+            Center(
+              child: AppText(
+                title: btName,
+                color: textColor ?? AppColors.textColor,
+                fontSize: 14.sp,
+                height: 1.5,
+                letterSpacing: -1,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
       ),
     );
   }

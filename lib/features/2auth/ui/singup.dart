@@ -6,6 +6,7 @@ import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.state.dart';
 import 'package:paint_shop/features/2auth/widget/signup.head.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
+import 'package:paint_shop/utils/toast_message.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -22,10 +23,11 @@ class _SignupScreenState extends State<SignupScreen> {
   final _nameController = TextEditingController();
   final _mobileController = TextEditingController();
   void _trySingup() {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       context.read<AuthCubit>().signUp(
         email: _emailController.text.trim(),
-        password: _passwordController.text,
+        password: _passwordController.text.trim(),
         fullName: _nameController.text.trim(),
         phone: _mobileController.text,
       );
@@ -37,8 +39,8 @@ class _SignupScreenState extends State<SignupScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
-    _passwordController.dispose();
     _conPasswordController.dispose();
+    _mobileController.dispose();
     super.dispose();
   }
 
@@ -64,11 +66,11 @@ class _SignupScreenState extends State<SignupScreen> {
             child: BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is AuthFailure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
+                  AppToast.error(state.message);
                 } else if (state is AuthSuccess) {
-                  context.goNamed('home');
+                  AppToast.success(state.message!);
+
+                  context.go('/login');
                 }
               },
               child: SingleChildScrollView(
@@ -157,7 +159,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               validator: MultiValidator([
                                 RequiredValidator(errorText: 'Required'),
                                 MinLengthValidator(
-                                  8,
+                                  6,
                                   errorText: 'Min 6 characters',
                                 ),
                               ]).call,
@@ -189,7 +191,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           ],
                         ),
                       ),
-                      Gap(40.h),
+                      Gap(100.h),
                       BlocBuilder<AuthCubit, AuthState>(
                         builder: (context, state) {
                           if (state is AuthLoading) {

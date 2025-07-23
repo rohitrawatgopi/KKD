@@ -29,6 +29,7 @@ class AppTextField extends StatelessWidget {
   final double? fontSize;
 
   final Widget? prefixIcon;
+  final Widget? surfixIcon;
   final TextInputType? keyBoardType;
   final bool? enabled;
   final void Function(String)? onFieldSubmitted;
@@ -36,6 +37,7 @@ class AppTextField extends StatelessWidget {
   final String obscuringCharacter;
   final TextAlign textAlign;
   final String? prefixText;
+  final String? surfixText;
   final TextStyle? hintStyle;
   final Color? bgColor;
   final Color? textColor;
@@ -62,6 +64,7 @@ class AppTextField extends StatelessWidget {
     this.hintStyle,
     this.bgColor = Colors.white,
     this.prefixIcon,
+    this.surfixIcon,
     this.leadingIcon,
     this.textCapitalization,
     this.initialValue,
@@ -74,11 +77,12 @@ class AppTextField extends StatelessWidget {
     this.enabled = true,
     this.textAlign = TextAlign.start,
     this.onFieldSubmitted,
-    this.maxLines,
+    this.maxLines = 1,
     this.borderColor,
     this.labelStyle,
     this.maxLength,
     this.prefixText,
+    this.surfixText,
     this.counterText,
     this.obscuringCharacter = '•',
     this.borderRadius = 30,
@@ -101,14 +105,16 @@ class AppTextField extends StatelessWidget {
       ),
       child: TextFormField(
         textInputAction:
-            TextInputAction.newline, // 🛠️ Move to next line on enter
+            TextInputAction.search, // 🛠️ Move to next line on enter
         textCapitalization: textCapitalization ?? TextCapitalization.none,
         onFieldSubmitted: onFieldSubmitted,
         inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'^\s'))],
         enabled: enabled,
+
         focusNode: focusNode,
         initialValue: initialValue,
         validator: validator,
+
         onChanged: onChanged,
         readOnly: readOnly,
         obscureText: obscureText,
@@ -129,12 +135,13 @@ class AppTextField extends StatelessWidget {
         ),
         obscuringCharacter: obscuringCharacter,
         decoration: InputDecoration(
+          suffix: surfixIcon,
           prefixIcon: prefixIcon,
           isCollapsed: isCollapsed,
           counterText: '',
           prefix: leadingIcon,
           prefixText: prefixText,
-          filled: readOnly,
+          suffixText: surfixText,
           hintText: hintText,
           hintStyle: hintStyle,
           suffixIcon: iconData,

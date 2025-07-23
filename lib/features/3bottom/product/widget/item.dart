@@ -1,7 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:paint_shop/app/import.dart';
+import 'package:paint_shop/core/model/product.dart';
+import 'package:paint_shop/core/services/cache.photo.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final ProductModel product;
+  ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -10,39 +15,68 @@ class ProductCard extends StatelessWidget {
         Container(
           height: 204.h,
           width: 164.w,
-          padding: EdgeInsets.symmetric(vertical: 8.r),
+          padding: EdgeInsets.only(top: 8.h, bottom: 8.h),
           decoration: BoxDecoration(
-            // border: Border.all(color: Colors.black),
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.r),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(AppImage.paint, width: 114.w, height: 128.h),
               Container(
-                height: 44.h,
-                width: 164.w,
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                padding: EdgeInsetsGeometry.only(
+                  top: 8.h,
+                  bottom: 8.h,
+                  left: 10.w,
+                  right: 10.w,
+                ),
+                width: 164.h,
+                height: 144.h,
+
+                child: ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(3.r),
+                  child: CachedNetworkImage(
+                    cacheManager: MyCacheManager.instance,
+                    imageUrl: product.productImage,
+                    height: 114.h,
+                    width: 128.w,
+                    fit: BoxFit.fill,
+
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(child: Icon(Icons.error)),
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        Center(
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: CircleAvatar(radius: 80.r),
+                          ),
+                        ),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 8.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+
                   children: [
                     AppText(
                       height: 1,
-                      title: "Birla Opus Style Perfect Start Primer",
+                      title: product.productName,
                       letterSpacing: 0.2,
                       fontWeight: FontWeight.w500,
                       fontSize: 12.sp,
+                      maxLine: 2,
+                      textOverflow: TextOverflow.ellipsis,
                     ),
-
-                    Gap(7.h),
+                    Gap(1.5.h),
                     AppText(
                       height: 1,
-                      title: "944353",
+                      title: product.productId,
                       fontSize: 10.sp,
-
+                      textOverflow: TextOverflow.ellipsis,
                       letterSpacing: 0,
 
                       fontWeight: FontWeight.w400,
@@ -53,25 +87,25 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ),
-
         Positioned(
           right: 14.w,
-          top: 7.h,
+          top: 10.h,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-            height: 32.h,
-            width: 62.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-
+              borderRadius: BorderRadius.circular(5.r),
               color: AppColors.cardStackColor,
             ),
-
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(AppImage.dollar),
+                Image.asset(
+                  AppImage.dollar,
+                  height: 16.h, // optionally control image size
+                ),
+                SizedBox(width: 4.w), // space between icon and text
                 AppText(
-                  title: "500",
+                  title: product.coinReward.toString(),
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                 ),

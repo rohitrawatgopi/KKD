@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:paint_shop/core/constants/color_constant.dart';
 import 'package:paint_shop/core/constants/text_constant.dart';
 import 'package:paint_shop/features/2auth/cubit/auth.cubit.dart';
@@ -13,6 +14,7 @@ import 'package:paint_shop/features/2auth/widget/login.head.dart';
 import 'package:paint_shop/utils/app_button.dart';
 import 'package:paint_shop/utils/app_text.dart';
 import 'package:paint_shop/utils/app_text_filed.dart';
+import 'package:paint_shop/utils/toast_message.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,10 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   void _tryLogin() {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       context.read<AuthCubit>().signIn(
         _emailMobileController.text.trim(),
-        _passwordController.text,
+        _passwordController.text.trim(),
       );
     }
   }
@@ -61,11 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
             child: BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is AuthFailure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
+                  AppToast.error(state.message);
                 } else if (state is AuthSuccess) {
-                  context.push("/bottom");
+                  AppToast.success(state.message!);
+                  context.push("/home");
                 }
               },
               child: SingleChildScrollView(
@@ -82,41 +84,73 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Gap(20),
-                            AppText(
-                              fontWeight: FontWeight.w500,
-                              title: AppString.emailOrMobile,
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              height: 1.5,
+                            InkWell(
+                              onTap: () {
+                                print(Hive.box('authBox').get('token'));
+                              },
+                              child: AppText(
+                                fontWeight: FontWeight.w500,
+                                title: AppString.emailOrMobile,
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                height: 1.5,
+                              ),
                             ),
                             AppTextField(
                               controller: _emailMobileController,
                               hintText: AppString.enterYourEmailOrMobile,
-                              validator: MultiValidator([
-                                EmailValidator(
-                                  errorText: 'Enter a valid email',
-                                ),
-                              ]).call,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Email or mobile number is required';
+                                }
+
+                                final emailRegex = RegExp(
+                                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                );
+                                final phoneRegex = RegExp(r'^[0-9]{10}$');
+
+                                if (!emailRegex.hasMatch(value.trim()) &&
+                                    !phoneRegex.hasMatch(value.trim())) {
+                                  return 'Enter a valid email or 10-digit mobile number';
+                                }
+
+                                return null;
+                              },
                             ),
+
                             Gap(13),
                             AppText(
                               title: AppString.password,
                               color: Colors.black,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
+                              height: 1.5,
                             ),
-                            AppTextField(
-                              controller: _passwordController,
-                              hintText: AppString.enterYourPassword,
-                              obscureText: true,
-                              maxLines: 1,
-                              validator: MultiValidator([
-                                RequiredValidator(errorText: 'Required'),
-                                MinLengthValidator(
-                                  8,
-                                  errorText: 'Min 6 characters',
-                                ),
-                              ]).call,
+                            BlocBuilder<AuthCubit, AuthState>(
+                              builder: (context, state) {
+                                final cubit = context.read<AuthCubit>();
+
+                                return AppTextField(
+                                  height: 50.h,
+                                  maxLines: 1,
+                                  validator: RequiredValidator(
+                                    errorText: "Password is required' ",
+                                  ),
+                                  controller: _passwordController,
+                                  hintText: 'Enter your password',
+                                  obscureText: cubit.isSSecure,
+                                  surfixIcon: IconButton(
+                                    icon: Icon(
+                                      cubit.isSSecure
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                    ),
+                                    onPressed: () {
+                                      cubit.toggleSecure();
+                                    },
+                                  ),
+                                );
+                              },
                             ),
                             Gap(350.h),
 
@@ -138,16 +172,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             Gap(13.h),
                             InkWell(
                               onTap: () {
-                                context.pushNamed("signup");
+                                context.go("/signup");
                               },
                               child: Align(
                                 alignment: Alignment.center,
                                 child: AppText(
                                   textAlign: TextAlign.center,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w400,
                                   title: AppString.Donthaveanaccount,
                                   color: Colors.black,
-                                  fontSize: 16.sp,
+                                  fontSize: 14.sp,
                                 ),
                               ),
                             ),

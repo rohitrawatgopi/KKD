@@ -1,6 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:paint_shop/app/import.dart';
+import 'package:paint_shop/features/3bottom/home/cubit/home.cubit.dart';
+import 'package:paint_shop/features/3bottom/product/widget/category/cubit/category.product.cubit.dart';
 
 void showFilterBottomSheet(BuildContext context) {
+  bool isClicked = false;
+
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -9,88 +14,76 @@ void showFilterBottomSheet(BuildContext context) {
     ),
     builder: (context) {
       return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filter',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Category',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: [
-                _buildFilterChip('Interior', true),
-                _buildFilterChip('Exterior', false),
-                _buildFilterChip('Waterproofing', false),
-                _buildFilterChip('Woodfinish', false),
-                _buildFilterChip('Wallpaper', false),
-                _buildFilterChip('Enamel', false),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Price',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: [
-                _buildFilterChip('1000', true),
-                _buildFilterChip('3000', false),
-                _buildFilterChip('5000', false),
-                _buildFilterChip('8000', false),
-                _buildFilterChip('12,000', false),
-                _buildFilterChip('15,000', false),
-                _buildFilterChip('20,000', false),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(onPressed: () {}, child: Text("Clean")),
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 16,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+        ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight:
+                MediaQuery.of(context).size.height * 0.8, // 👈 Max 80% height
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  "Filter",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Apply Changes"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
+              ),
+              Divider(),
+              SizedBox(height: 10),
+              Text(
+                "Category",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 10),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: List.generate(HomeCubit.resuableCategory.length, (
+                  index,
+                ) {
+                  return InkWell(
+                    onTap: () async {
+                      context.read<ProductCategoryCubit>().categoryVise(
+                        HomeCubit.resuableCategory[index].id,
+                      );
+                      context.push(
+                        "/cactegoryProduct",
+                        extra: {
+                          "category": HomeCubit.resuableCategory[index].id,
+                          "screenName":
+                              HomeCubit.resuableCategory[index].categoryName,
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isClicked == true ? Colors.black : Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: Text(
+                        HomeCubit.resuableCategory[index].categoryName,
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                  );
+                }),
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       );
     },
-  );
-}
-
-Widget _buildFilterChip(String label, bool isSelected) {
-  return FilterChip(
-    label: Text(label),
-    selected: isSelected,
-    selectedColor: Colors.black,
-    backgroundColor: Colors.grey[200],
-    labelStyle: TextStyle(color: isSelected ? Colors.white : Colors.black),
-    onSelected: (bool value) {},
   );
 }

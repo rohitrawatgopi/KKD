@@ -1,11 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:paint_shop/app/import.dart';
+import 'package:paint_shop/core/model/product.dart';
+import 'package:paint_shop/core/services/cache.photo.dart';
+import 'package:shimmer/shimmer.dart';
 
 class OfferProductCard extends StatelessWidget {
-  const OfferProductCard({super.key});
+  final ProductModel product;
+  const OfferProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
         Container(
           height: 191.h,
@@ -21,11 +27,25 @@ class OfferProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
 
             children: [
-              Image.asset(
-                AppImage.car,
-                width: 148.w,
-                height: 123.h,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadiusGeometry.circular(3.r),
+                child: CachedNetworkImage(
+                  cacheManager: MyCacheManager.instance,
+                  imageUrl: product.productImage,
+                  height: 114.h,
+                  width: 128.w,
+                  fit: BoxFit.fill,
+
+                  errorWidget: (context, url, error) =>
+                      const CircleAvatar(child: Icon(Icons.error)),
+                  progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: CircleAvatar(radius: 80.r),
+                    ),
+                  ),
+                ),
               ),
               Container(
                 height: 48.h,
@@ -37,7 +57,7 @@ class OfferProductCard extends StatelessWidget {
                   children: [
                     AppText(
                       height: 1.4,
-                      title: AppString.HyundaiCreta,
+                      title: product.productName,
                       letterSpacing: 0,
                       fontWeight: FontWeight.w500,
                       fontSize: 14.sp,
